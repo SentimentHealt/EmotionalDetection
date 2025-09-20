@@ -135,3 +135,4 @@ if __name__ == "__main__":
     clf = BertSentimentTrainer(epochs=2)
     train_loader, val_loader = clf.prepare_data(csv_path)
     clf.train(train_loader, val_loader)
+
