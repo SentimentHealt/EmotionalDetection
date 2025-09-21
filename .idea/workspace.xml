@@ -4,14 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b412118-9316-4b57-91d2-2e729289ceca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sentimentAnalysisBERT.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BertSentimentTrainer.py" afterDir="false" />
+    <list default="true" id="7b412118-9316-4b57-91d2-2e729289ceca" name="Changes" comment="Suggestion işlemleri ve model optimizastonu">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_model/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_model/model.safetensors" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_model/special_tokens_map.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_model/tokenizer_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_model/vocab.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/suggestion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/training.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/validation.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BertSentimentTrainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/BertSentimentTrainer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +31,25 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="21.09.2025" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;engsevvalbilgin&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/SentimentHealt/EmotionalDetection.git&quot;,
+    &quot;accountId&quot;: &quot;a61dfaad-7ffe-442f-9c03-05f28d399634&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -42,7 +64,9 @@
     &quot;Python.BertSentimentTrainer.executor&quot;: &quot;Run&quot;,
     &quot;Python.bertModel.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;21.09.2025&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hp/PycharmProjects/EmotionalDetection&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -51,6 +75,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hp\PycharmProjects\EmotionalDetection" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="BertSentimentTrainer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="sentimentAnalysisBERT" />
@@ -84,8 +113,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18968.29" />
-        <option value="bundled-python-sdk-f5635417b835-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18968.29" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-PY-243.21565.199" />
+        <option value="bundled-python-sdk-cab1f2013843-4ae2d6a61b08-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.21565.199" />
       </set>
     </attachedChunks>
   </component>
@@ -101,11 +130,38 @@
       <workItem from="1758096306342" duration="1873000" />
       <workItem from="1758353732551" duration="790000" />
       <workItem from="1758354582869" duration="5929000" />
+      <workItem from="1758481778716" duration="391000" />
+      <workItem from="1758482456354" duration="56000" />
+      <workItem from="1758482776390" duration="511000" />
+      <workItem from="1758483305693" duration="4000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="21.09.2025" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sentimentAnalysisBERT$bertModel.coverage" NAME="bertModel Coverage Results" MODIFIED="1757952415455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
