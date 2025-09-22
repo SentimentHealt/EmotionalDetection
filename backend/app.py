@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from flask import Flask, request, jsonify, render_template, make_response
 from flask_cors import CORS
@@ -175,7 +176,7 @@ def create_app():
         print(f"[DUYGU TAHMİNİ] User {user_id}: '{content}' --> {emotion}")
 
         # Veritabanına kaydet (emotion olmadan)
-        e = Entry(user_id=user_id, content=content)
+        e = Entry(user_id=user_id, content=content,emotion=emotion,updated_at=datetime.now())
         db.session.add(e)
         db.session.commit()
 
@@ -214,7 +215,7 @@ def create_app():
             "id": e.id,
             "content": e.content,
             "created_at": e.created_at.isoformat() if e.created_at else None,
-            "updated_at": e.updated_at.isoformat() if e.updated_at else None,
+            "updated_at": datetime.now().isoformat() if e.updated_at else None,
         }), 200
 
     # DELETE /api/entries/<id>
