@@ -243,114 +243,119 @@
     </footer>
 </div>
 <script>
-    let currentQuestion = 1;
-    const totalQuestions = 10;
-    const surveyContainer = document.getElementById('survey-container');
-    const finishButton = document.getElementById('finish-button');
-    const nextButton = document.querySelector('button[onclick="navigateSurvey(1)"]');
-    const prevButton = document.querySelector('button[onclick="navigateSurvey(-1)"]');
-    document.getElementById("loginForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
+  // --- Survey state ---
+  let currentQuestion = 1;
+  const totalQuestions = 10;
+  const surveyContainer = document.getElementById('survey-container');
+  const finishButton = document.getElementById('finish-button');
+  const nextButton = document.querySelector('button[onclick="navigateSurvey(1)"]');
+  const prevButton = document.querySelector('button[onclick="navigateSurvey(-1)"]');
 
-    fetch("/api/login", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({email, password})
-    })
-    .then(res => res.json())
-    .then(data => {
-        if(data.error){
-            alert(data.error);
-        } else {
-            alert("Login successful! Welcome " + data.user.name);
-            // login sonrası yönlendirme örneği:
-            window.location.href = "/journal";
-        }
-    })
-    .catch(err => console.error(err));
-});
-    function navigateSurvey(direction) {
-        const current = document.querySelector(`.survey-question[data-question="${currentQuestion}"]`);
-        let nextQuestionIndex = currentQuestion + direction;
+  function navigateSurvey(direction) {
+    const current = document.querySelector(`.survey-question[data-question="${currentQuestion}"]`);
+    let nextQuestionIndex = currentQuestion + direction;
+    if (nextQuestionIndex < 1 || nextQuestionIndex > totalQuestions) return;
 
-        if (nextQuestionIndex < 1 || nextQuestionIndex > totalQuestions) {
-            return;
-        }
+    const next = document.querySelector(`.survey-question[data-question="${nextQuestionIndex}"]`);
+    current.style.transform = `translateX(${direction * -100}vw)`;
+    next.style.transform = 'translateX(0)';
 
-        const next = document.querySelector(`.survey-question[data-question="${nextQuestionIndex}"]`);
+    current.classList.remove('active');
+    next.classList.add('active');
 
-        current.style.transform = `translateX(${direction * -100}vw)`;
-        next.style.transform = 'translateX(0)';
+    currentQuestion = nextQuestionIndex;
+    updateButtons();
+  }
 
-        current.classList.remove('active');
-        next.classList.add('active');
-
-        currentQuestion = nextQuestionIndex;
-        updateButtons();
+  function updateButtons() {
+    if (currentQuestion === totalQuestions) {
+      finishButton.classList.remove('hidden');
+      nextButton.classList.add('hidden');
+    } else {
+      finishButton.classList.add('hidden');
+      nextButton.classList.remove('hidden');
     }
+    prevButton.style.visibility = currentQuestion === 1 ? 'hidden' : 'visible';
+  }
+  updateButtons();
 
-    // Kullanıcı bilgilerini geçici olarak saklamak için bir obje
-    let userData = {};
+  // --- Sign up: geçici kullanıcı verisi + anket yanıtları ---
+  let userData = {};
+  function storeUserData() {
+    userData.name = document.getElementById('signup-name').value;
+    userData.email = document.getElementById('signup-email').value;
+    userData.password = document.getElementById('signup-password').value;
+  }
 
-    function storeUserData() {
-        userData.name = document.getElementById('signup-name').value;
-        userData.email = document.getElementById('signup-email').value;
-        userData.password = document.getElementById('signup-password').value;
-    }
-
-    function finishSurvey() {
+  async function finishSurvey() {
     const answers = {};
     const textareas = document.querySelectorAll('#survey-container textarea');
+    textareas.forEach(t => { answers[t.name] = t.value || ""; });
 
-    textareas.forEach(textarea => {
-        answers[textarea.name] = textarea.value || ""; // boşsa ""
-    });
-
-    // Kullanıcı bilgilerini ve anket cevaplarını birleştir
-    const finalData = {
-        ...userData,
-        answers: answers // JSON.stringify yapmadan direkt obje gönderiyoruz
-    };
-
-    console.log("Sending data to backend:", finalData); // Debug için
-
-    // API'ye POST isteği gönder
-    fetch('/api/signup', {
+    const finalData = { ...userData, answers };
+    try {
+      const res = await fetch('/api/signup', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(finalData) // burada zaten stringify ediyoruz, backend dict olarak alıyor
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert('Kaydınız başarıyla tamamlandı!');
-            window.location.hash = '#initial-screen';
+        body: JSON.stringify(finalData)
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
+        // (Opsiyonel) Otomatik login:
+        const loginRes = await fetch('/api/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ email: userData.email, password: userData.password })
+        });
+        const loginData = await loginRes.json().catch(() => ({}));
+
+        if (loginRes.ok) {
+          sessionStorage.setItem('user', JSON.stringify(loginData.user));
+          if (loginData.access_token) sessionStorage.setItem('token', loginData.access_token);
+          window.location.replace('/journal');
         } else {
-            alert(data.error);
+          alert('Account created. Please login.');
+          window.location.hash = '#login-form';
         }
-    })
-    .catch(error => {
-        console.error('Hata:', error);
-        alert('Bir hata oluştu, lütfen tekrar deneyin.');
-    });
-}
-
-
-    function updateButtons() {
-        if (currentQuestion === totalQuestions) {
-            finishButton.classList.remove('hidden');
-            nextButton.classList.add('hidden');
-        } else {
-            finishButton.classList.add('hidden');
-            nextButton.classList.remove('hidden');
-        }
-
-        prevButton.style.visibility = currentQuestion === 1 ? 'hidden' : 'visible';
+      } else {
+        alert(data.error || 'Sign up failed');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Network error');
     }
+  }
 
-    updateButtons();
+  // --- LOGIN: sadece bu handler değişti ---
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        alert(data.error || "Login failed");
+        return;
+      }
+
+      // Journal sayfası bunu bekliyor:
+      sessionStorage.setItem("user", JSON.stringify(data.user));
+      if (data.access_token) sessionStorage.setItem("token", data.access_token);
+
+      window.location.replace("/journal");
+    } catch (err) {
+      console.error(err);
+      alert("Network error");
+    }
+  });
 </script>
 </body>
 </html>

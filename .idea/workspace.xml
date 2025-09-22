@@ -4,20 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b412118-9316-4b57-91d2-2e729289ceca" name="Changes" comment="Öneri, veri veriseti işlemleri ve model optimizasyonu">
-      <change afterPath="$PROJECT_DIR$/backend/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/create_tables.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/predict_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/ProfilePage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/journalPage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/loginSignUpPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sentimentAnalysisBERT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sentimentAnalysisBERT.iml" afterDir="false" />
+    <list default="true" id="7b412118-9316-4b57-91d2-2e729289ceca" name="Changes" comment="readme ve requirements dosyaları">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BertSentimentTrainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/BertSentimentTrainer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/create_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/create_tables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/predict_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/predict_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/loginSignUpPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/loginSignUpPage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +64,7 @@
     "Python.create_tables.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "21.09.2025",
+    "git-widget-placeholder": "#2 on 21.09.2025",
     "last_opened_file_path": "C:/Users/hp/PycharmProjects/EmotionalDetection/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -195,8 +190,26 @@
       <workItem from="1758482776390" duration="511000" />
       <workItem from="1758483305693" duration="4000" />
       <workItem from="1758491952150" duration="2410000" />
-      <workItem from="1758495078178" duration="4899000" />
+      <workItem from="1758495078178" duration="6651000" />
+      <workItem from="1758537479267" duration="346000" />
     </task>
+    <task id="LOCAL-00001" summary="survey answers, ve bağlantılar">
+      <option name="closed" value="true" />
+      <created>1758500211926</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758500211926</updated>
+    </task>
+    <task id="LOCAL-00002" summary="readme ve requirements dosyaları">
+      <option name="closed" value="true" />
+      <created>1758530650578</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758530650578</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,6 +237,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="survey answers, ve bağlantılar" />
+    <MESSAGE value="readme ve requirements dosyaları" />
+    <option name="LAST_COMMIT_MESSAGE" value="readme ve requirements dosyaları" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sentimentAnalysisBERT$BertSentimentTrainer.coverage" NAME="BertSentimentTrainer Coverage Results" MODIFIED="1758354951699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

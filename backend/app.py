@@ -113,7 +113,7 @@ def create_app():
             "id": u.id,
             "name": u.name,
             "email": u.email,
-            # "member_since": u.created_at.isoformat() if hasattr(u, "created_at") and u.created_at else None
+            "member_since": u.created_at.isoformat() if u.created_at else None
         }), 200
 
     @app.put("/api/users/<int:user_id>/password")
