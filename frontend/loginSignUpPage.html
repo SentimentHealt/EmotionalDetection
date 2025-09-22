@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Journal App</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <style type="text/tailwindcss">
+        :root {
+            --primary-color: #f4b4c4;
+            --background-light: #fff8f9;
+            --background-dark: #2a3141;
+            --text-light: #52474a;
+            --text-dark: #e8dee1;
+            --accent-color: #f7d9a1;
+            --complementary-color-1: #a9def9;
+            --complementary-color-2: #e4c1f9;
+            --pink-harmony-1: #ffc0cb;
+            --pink-harmony-2: #e4c1f9;
+            --pink-harmony-3: #a9def9;
+            --pink-harmony-4: #f4b4c4;
+        }
+        body {
+            font-family: 'Gaegu', cursive;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24
+        }
+        .scribble-button {
+            border: 2px solid var(--text-light);
+            border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+            transition: all 0.3s ease-in-out;
+        }
+        .dark .scribble-button {
+            border-color: var(--text-dark);
+        }
+        .scribble-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .scribble-input {
+            border: 2px solid var(--text-light);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            transition: all 0.3s ease-in-out;
+        }
+        .scribble-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(244, 180, 196, 0.4);
+            outline: none;
+        }
+        #login-form,
+        #signup-form,
+        #survey-form {
+            display: none;
+        }
+        #initial-screen:target~#login-form,
+        #initial-screen:target~#signup-form,
+        #initial-screen:target~#survey-form {
+            display: none;
+        }
+        #initial-screen:target {
+            display: flex;
+        }
+         :target~#initial-screen {
+            display: none;
+        }
+        #login-form:target {
+            display: flex;
+        }
+        #signup-form:target {
+            display: flex;
+        }
+        #survey-form:target {
+            display: flex;
+        }
+        @keyframes wave {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .animated-background {
+            background: linear-gradient(45deg, var(--pink-harmony-4), var(--pink-harmony-2), var(--pink-harmony-3), var(--pink-harmony-1));
+            background-size: 400% 400%;
+            animation: wave 15s ease infinite;
+        }
+        .survey-question {
+            transform: translateX(100vw);
+            opacity: 0;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            position: absolute;
+            width: 100%;
+        }
+        .survey-question.active {
+            transform: translateX(0);
+            opacity: 1;
+            position: relative;
+        }
+        .survey-question.exiting {
+            transform: translateX(-100vw);
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-[var(--background-light)] dark:bg-[var(--background-dark)] text-[var(--text-light)] dark:text-[var(--text-dark)] antialiased">
+<div class="min-h-screen flex flex-col">
+    <header class="absolute top-0 right-0 p-6 z-10">
+        <div class="flex items-center gap-4">
+            <a class="scribble-button bg-[var(--primary-color)]/80 hover:bg-[var(--primary-color)] text-[var(--text-light)] dark:text-[var(--text-dark)] hover:text-white font-bold py-2 px-5 text-lg" href="#login-form">Login</a>
+            <a class="scribble-button bg-white/80 hover:bg-[var(--primary-color)] text-[var(--text-light)] dark:text-[var(--text-light)] hover:text-white font-bold py-2 px-5 text-lg" href="#signup-form">Sign Up</a>
+        </div>
+    </header>
+    <main class="flex-grow flex items-center justify-center animated-background" id="initial-screen">
+        <div class="text-center">
+            <h1 class="text-7xl md:text-8xl font-bold text-white drop-shadow-lg" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">My Little Journal</h1>
+            <a class="hidden" href="#initial-screen"></a>
+        </div>
+    </main>
+    <main class="flex-grow flex items-center justify-center" id="login-form">
+        <div class="text-center w-full max-w-md px-4">
+            <div class="relative inline-block mb-8">
+                <div class="w-32 h-32 bg-[var(--primary-color)] rounded-full flex items-center justify-center text-white shadow-lg" style="border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;">
+                    <span class="material-symbols-outlined text-6xl transform -rotate-12"> auto_awesome </span>
+                </div>
+                <div class="absolute -top-4 -left-8 text-5xl transform -rotate-12 animate-pulse">✨</div>
+                <div class="absolute -bottom-4 -right-8 text-3xl transform rotate-12 animate-pulse" style="animation-delay: 0.5s;">💖</div>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold mb-4">Welcome Back</h1>
+            <p class="text-xl text-[var(--text-light)]/80 dark:text-[var(--text-dark)]/80 mb-12">Let's continue your story.</p>
+            <form class="space-y-6" id="loginForm">
+                <div>
+                    <input id="login-email" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0" placeholder="Your Email" type="email"/>
+                </div>
+                <div>
+                    <input id="login-password" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0" placeholder="Your Password" type="password"/>
+                </div>
+                <div>
+                    <button class="w-full scribble-button bg-[var(--primary-color)]/80 hover:bg-[var(--primary-color)] text-[var(--text-light)] hover:text-white font-bold py-4 px-6 text-xl transition-all" type="submit"> Login </button>
+                </div>
+            </form>
+            <a class="inline-block mt-6 text-md text-[var(--text-light)]/60 dark:text-[var(--text-dark)]/60 hover:text-[var(--primary-color)] transition-colors" href="#">Forgot your password?</a>
+        </div>
+    </main>
+    <main class="flex-grow flex items-center justify-center" id="signup-form">
+        <div class="text-center w-full max-w-md px-4">
+            <div class="relative inline-block mb-8">
+                <div class="w-32 h-32 bg-[var(--primary-color)] rounded-full flex items-center justify-center text-white shadow-lg" style="border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;">
+                    <span class="material-symbols-outlined text-6xl transform rotate-12"> diversity_3 </span>
+                </div>
+                <div class="absolute -top-4 -left-8 text-5xl transform -rotate-12 animate-pulse">📝</div>
+                <div class="absolute -bottom-4 -right-8 text-3xl transform rotate-12 animate-pulse" style="animation-delay: 0.5s;">💕</div>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold mb-4">Create Your Account</h1>
+            <p class="text-xl text-[var(--text-light)]/80 dark:text-[var(--text-dark)]/80 mb-12">Join our community and start your journey.</p>
+            <form class="space-y-6" id="signupForm">
+                <div>
+                    <input class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0" placeholder="Your Name" type="text" id="signup-name"/>
+                </div>
+                <div>
+                    <input class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0" placeholder="Your Email" type="email" id="signup-email"/>
+                </div>
+                <div>
+                    <input class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0" placeholder="Create a Password" type="password" id="signup-password"/>
+                </div>
+                <div>
+                    <a class="w-full block scribble-button bg-[var(--primary-color)]/80 hover:bg-[var(--primary-color)] text-[var(--text-light)] hover:text-white font-bold py-4 px-6 text-xl transition-all" href="#survey-form" onclick="storeUserData()"> Sign Up &amp; Personalize </a>
+                </div>
+            </form>
+            <a class="inline-block mt-6 text-md text-[var(--text-light)]/60 dark:text-[var(--text-dark)]/60 hover:text-[var(--primary-color)] transition-colors" href="#login-form">Already have an account? Login</a>
+        </div>
+    </main>
+    <main class="flex-grow flex flex-col items-center justify-center overflow-hidden" id="survey-form">
+        <div class="text-center w-full max-w-2xl px-4 relative">
+            <div class="relative inline-block mb-8">
+                <div class="w-32 h-32 bg-[var(--primary-color)] rounded-full flex items-center justify-center text-white shadow-lg" style="border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;">
+                    <span class="material-symbols-outlined text-6xl transform -rotate-12"> quiz </span>
+                </div>
+                <div class="absolute -top-2 -left-8 text-4xl transform -rotate-12 animate-pulse">🤔</div>
+                <div class="absolute -bottom-2 -right-8 text-4xl transform rotate-12 animate-pulse" style="animation-delay: 0.5s;">💡</div>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Bize Biraz Kendinden Bahset</h1>
+            <p class="text-lg text-[var(--text-light)]/80 dark:text-[var(--text-dark)]/80 mb-10">Bu, deneyimini kişiselleştirmemize yardımcı olacak.</p>
+            <div class="relative min-h-[250px]" id="survey-container">
+                <div class="survey-question active" data-question="1">
+                    <h2 class="text-3xl font-semibold mb-6">Hafta sonlarını nasıl değerlendiriyorsun?</h2>
+                    <textarea name="q1" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+                <div class="survey-question" data-question="2">
+                    <h2 class="text-3xl font-semibold mb-6">Boş zamanlarında ne yapmaktan hoşlanırsın?</h2>
+                    <textarea name="q2" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+                <div class="survey-question" data-question="3">
+                    <h2 class="text-3xl font-semibold mb-6">Yeni bir şeyler öğrenmeye açık mısın?</h2>
+                    <textarea name="q3" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+                <div class="survey-question" data-question="4">
+                    <h2 class="text-3xl font-semibold mb-6">Arkadaşlarınla vakit geçirirken neler yaparsın?</h2>
+                    <textarea name="q4" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+                <div class="survey-question" data-question="5">
+                    <h2 class="text-3xl font-semibold mb-6">Spor yapıyor musun? Hangi sporları yapıyorsun?</h2>
+                    <textarea name="q5" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+                <div class="survey-question" data-question="6">
+                    <h2 class="text-3xl font-semibold mb-6">Sanat veya müzikle ilgileniyor musun?</h2>
+                    <textarea name="q6" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+                <div class="survey-question" data-question="7">
+                    <h2 class="text-3xl font-semibold mb-6">Kendi başına vakit geçirirken neler yaparsın?</h2>
+                    <textarea name="q7" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+                <div class="survey-question" data-question="8">
+                    <h2 class="text-3xl font-semibold mb-6">Seyahat etmeyi sever misin?</h2>
+                    <textarea name="q8" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+                <div class="survey-question" data-question="9">
+                    <h2 class="text-3xl font-semibold mb-6">Hangi aktiviteler seni motive eder?</h2>
+                    <textarea name="q9" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+                <div class="survey-question" data-question="10">
+                    <h2 class="text-3xl font-semibold mb-6">Hobilerin nelerdir?</h2>
+                    <textarea name="q10" class="w-full scribble-input bg-transparent py-3 px-5 text-lg placeholder-[var(--text-light)]/40 dark:placeholder-[var(--text-dark)]/40 focus:ring-0 h-32" placeholder="Cevabını buraya yaz..."></textarea>
+                </div>
+            </div>
+            <div class="flex justify-center items-center mt-8 space-x-4">
+                <button class="scribble-button bg-white/80 hover:bg-[var(--complementary-color-1)] text-[var(--text-light)] font-bold py-3 px-6 text-lg transition-all" onclick="navigateSurvey(-1)">Geri</button>
+                <div class="flex space-x-2">
+                </div>
+                <button class="scribble-button bg-[var(--primary-color)]/80 hover:bg-[var(--primary-color)] text-[var(--text-light)] hover:text-white font-bold py-3 px-6 text-lg transition-all" onclick="navigateSurvey(1)">İleri</button>
+            </div>
+            <button class="hidden w-1/2 mt-4 mx-auto scribble-button bg-[var(--accent-color)]/80 hover:bg-[var(--accent-color)] text-[var(--text-light)] hover:text-white font-bold py-4 px-6 text-xl transition-all" id="finish-button" onclick="finishSurvey()">Bitir</button>
+        </div>
+    </main>
+    <footer class="p-6 text-center text-sm text-[var(--text-light)]/50 dark:text-[var(--text-dark)]/50">
+        <p>© 2023 My Little Journal. All rights reserved.</p>
+    </footer>
+</div>
+<script>
+    let currentQuestion = 1;
+    const totalQuestions = 10;
+    const surveyContainer = document.getElementById('survey-container');
+    const finishButton = document.getElementById('finish-button');
+    const nextButton = document.querySelector('button[onclick="navigateSurvey(1)"]');
+    const prevButton = document.querySelector('button[onclick="navigateSurvey(-1)"]');
+    document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    fetch("/api/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({email, password})
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.error){
+            alert(data.error);
+        } else {
+            alert("Login successful! Welcome " + data.user.name);
+            // login sonrası yönlendirme örneği:
+            window.location.href = "/journal";
+        }
+    })
+    .catch(err => console.error(err));
+});
+    function navigateSurvey(direction) {
+        const current = document.querySelector(`.survey-question[data-question="${currentQuestion}"]`);
+        let nextQuestionIndex = currentQuestion + direction;
+
+        if (nextQuestionIndex < 1 || nextQuestionIndex > totalQuestions) {
+            return;
+        }
+
+        const next = document.querySelector(`.survey-question[data-question="${nextQuestionIndex}"]`);
+
+        current.style.transform = `translateX(${direction * -100}vw)`;
+        next.style.transform = 'translateX(0)';
+
+        current.classList.remove('active');
+        next.classList.add('active');
+
+        currentQuestion = nextQuestionIndex;
+        updateButtons();
+    }
+
+    // Kullanıcı bilgilerini geçici olarak saklamak için bir obje
+    let userData = {};
+
+    function storeUserData() {
+        userData.name = document.getElementById('signup-name').value;
+        userData.email = document.getElementById('signup-email').value;
+        userData.password = document.getElementById('signup-password').value;
+    }
+
+    function finishSurvey() {
+    const answers = {};
+    const textareas = document.querySelectorAll('#survey-container textarea');
+
+    textareas.forEach(textarea => {
+        answers[textarea.name] = textarea.value || ""; // boşsa ""
+    });
+
+    // Kullanıcı bilgilerini ve anket cevaplarını birleştir
+    const finalData = {
+        ...userData,
+        answers: answers // JSON.stringify yapmadan direkt obje gönderiyoruz
+    };
+
+    console.log("Sending data to backend:", finalData); // Debug için
+
+    // API'ye POST isteği gönder
+    fetch('/api/signup', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(finalData) // burada zaten stringify ediyoruz, backend dict olarak alıyor
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert('Kaydınız başarıyla tamamlandı!');
+            window.location.hash = '#initial-screen';
+        } else {
+            alert(data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Hata:', error);
+        alert('Bir hata oluştu, lütfen tekrar deneyin.');
+    });
+}
+
+
+    function updateButtons() {
+        if (currentQuestion === totalQuestions) {
+            finishButton.classList.remove('hidden');
+            nextButton.classList.add('hidden');
+        } else {
+            finishButton.classList.add('hidden');
+            nextButton.classList.remove('hidden');
+        }
+
+        prevButton.style.visibility = currentQuestion === 1 ? 'hidden' : 'visible';
+    }
+
+    updateButtons();
+</script>
+</body>
+</html>
