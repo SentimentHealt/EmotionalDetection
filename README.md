@@ -9,7 +9,7 @@ Bu proje, kullanıcıların günlük tutabileceği ve yazdıkları metinlerin du
 - **Günlük Takibi**: Tarih ve duygu durumuna göre günlük girişlerini filtreleme
 - **Profil Yönetimi**: Kullanıcı bilgilerini görüntüleme ve güncelleme
 - **Öneri Sistemi**: Kullanıcının ruh haline göre öneriler sunma
-
+Dataset buradan alınmıştır:https://www.kaggle.com/code/shtrausslearning/twitter-emotion-classification/input?select=validation.csv
 ## Teknoloji Yığını
 
 ### Backend
@@ -90,8 +90,7 @@ EmotionalDetection/
 
 ## Geliştiriciler
 
-- [İsminiz]
-- [İletişim Bilgileriniz]
+- İclal Horuz ve Şevval Bilğin
 
 ## Lisans
 
