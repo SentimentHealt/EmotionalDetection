@@ -37,7 +37,12 @@ class EmotionDataset(Dataset):
 
 class BertSentimentTrainer:
     def __init__(self, model_name="dbmdz/bert-base-turkish-uncased", lr=2e-5, epochs=3, batch_size=16, patience=3, weight_decay=0, warmup=0):
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        if torch.backends.mps.is_available():
+            self.device = torch.device("mps")
+        elif torch.cuda.is_available():
+            self.device = torch.device("cuda")
+        else:
+            self.device = torch.device("cpu")
         self.tokenizer = BertTokenizer.from_pretrained(model_name)
         self.model = None
         self.model_name = model_name

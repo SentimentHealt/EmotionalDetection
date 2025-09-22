@@ -4,19 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b412118-9316-4b57-91d2-2e729289ceca" name="Changes" comment="Suggestion işlemleri ve model optimizastonu">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best_model/config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best_model/model.safetensors" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best_model/special_tokens_map.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best_model/tokenizer_config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best_model/vocab.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/suggestion.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/training.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/validation.csv" afterDir="false" />
+    <list default="true" id="7b412118-9316-4b57-91d2-2e729289ceca" name="Changes" comment="fix(loginSignUpPace): login sayfasından yönlendirme düzeltildi.&#10;refactor(database): database tabloları güncellendi">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sentimentAnalysisBERT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sentimentAnalysisBERT.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BertSentimentTrainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/BertSentimentTrainer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/predict_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/predict_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best_model/model.safetensors" beforeDir="false" afterPath="$PROJECT_DIR$/best_model/model.safetensors" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/journalPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/journalPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/loginSignUpPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/loginSignUpPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,10 +30,21 @@
       </list>
     </option>
   </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="21.09.2025" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,28 +70,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.BertSentimentTrainer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.bertModel.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;21.09.2025&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hp/PycharmProjects/EmotionalDetection&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.loginSignUpPage.html.executor": "Run",
+    "Python.BertSentimentTrainer.executor": "Run",
+    "Python.app.executor": "Run",
+    "Python.bertModel.executor": "Run",
+    "Python.create_tables.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "21.09.2025",
+    "last_opened_file_path": "C:/Users/hp/PycharmProjects/EmotionalDetection/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hp\PycharmProjects\EmotionalDetection\backend" />
       <recent name="C:\Users\hp\PycharmProjects\EmotionalDetection" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/best_model" />
+      <recent name="C:\Users\hp\PycharmProjects\EmotionalDetection\frontend" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.app">
+    <configuration name="loginSignUpPage.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/EmotionalDetection/frontend/loginSignUpPage.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="BertSentimentTrainer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="sentimentAnalysisBERT" />
       <option name="ENV_FILES" value="" />
@@ -104,8 +127,64 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="sentimentAnalysisBERT" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.13 (EmotionalDetection)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="create_tables" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="sentimentAnalysisBERT" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/create_tables.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.loginSignUpPage.html" />
+      <item itemvalue="Python.app" />
+      <item itemvalue="Python.BertSentimentTrainer" />
+      <item itemvalue="Python.create_tables" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.app" />
+        <item itemvalue="Python.create_tables" />
+        <item itemvalue="JavaScript Debug.loginSignUpPage.html" />
         <item itemvalue="Python.BertSentimentTrainer" />
       </list>
     </recent_temporary>
@@ -134,7 +213,35 @@
       <workItem from="1758482456354" duration="56000" />
       <workItem from="1758482776390" duration="511000" />
       <workItem from="1758483305693" duration="4000" />
+      <workItem from="1758491952150" duration="2410000" />
+      <workItem from="1758495078178" duration="6651000" />
+      <workItem from="1758537479267" duration="1678000" />
     </task>
+    <task id="LOCAL-00001" summary="survey answers, ve bağlantılar">
+      <option name="closed" value="true" />
+      <created>1758500211926</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758500211926</updated>
+    </task>
+    <task id="LOCAL-00002" summary="readme ve requirements dosyaları">
+      <option name="closed" value="true" />
+      <created>1758530650578</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758530650578</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix(loginSignUpPace): login sayfasından yönlendirme düzeltildi.&#10;refactor(database): database tabloları güncellendi">
+      <option name="closed" value="true" />
+      <created>1758537900680</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758537900680</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +270,15 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="survey answers, ve bağlantılar" />
+    <MESSAGE value="readme ve requirements dosyaları" />
+    <MESSAGE value="fix(loginSignUpPace): login sayfasından yönlendirme düzeltildi.&#10;refactor(database): database tabloları güncellendi" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(loginSignUpPace): login sayfasından yönlendirme düzeltildi.&#10;refactor(database): database tabloları güncellendi" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/EmotionalDetection$app.coverage" NAME="app Coverage Results" MODIFIED="1758545349404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
+    <SUITE FILE_PATH="coverage/EmotionalDetection$create_tables.coverage" NAME="create_tables Coverage Results" MODIFIED="1758538379040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
     <SUITE FILE_PATH="coverage/sentimentAnalysisBERT$bertModel.coverage" NAME="bertModel Coverage Results" MODIFIED="1757952415455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/sentimentAnalysisBERT$BertSentimentTrainer.coverage" NAME="BertSentimentTrainer Coverage Results" MODIFIED="1758354951699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
