@@ -1,0 +1,15 @@
+flask
+flask-cors
+flask-migrate
+flask-sqlalchemy
+python-dotenv
+werkzeug
+requests
+torch
+transformers
+pandas
+scikit-learn
+tqdm
+safetensors
+tokenizers
+
