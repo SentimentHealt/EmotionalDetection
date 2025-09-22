@@ -1,7 +1,8 @@
 import json
 from datetime import datetime
+import google.generativeai as genai
 
-from flask import Flask, request, jsonify, render_template, make_response
+from flask import Flask, request, jsonify, render_template, make_response, current_app
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate
@@ -16,13 +17,79 @@ FRONTEND_DIR = BACKEND_DIR.parent / "frontend"
 def create_app():
     app = Flask(__name__, template_folder=str(FRONTEND_DIR), static_folder=str(FRONTEND_DIR))
     app.config.from_object(Config)
+
+    if app.config.get("GOOGLE_API_KEY"):
+        genai.configure(api_key=app.config["GOOGLE_API_KEY"])
+
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # DB ve migrate
     db.init_app(app)
     Migrate(app, db)
 
+    # app.py içi
 
+    def ai_journal_coach(answers_dict, entry_text, emotion, user_lang="auto"):
+        """
+        answers_dict: signup anketi (dict)
+        entry_text: güncel entry
+        emotion: predict_model’dan gelen duygusal etiket (ör. "sad", "happy"...)
+        user_lang: "auto" → entry hangi dilse o dilde yanıtla
+        """
+
+        # Anketi bullet list olarak kısaca özetleyelim (çok uzunsa trime edebiliriz)
+        def summarize_answers(ans):
+            if not isinstance(ans, dict):
+                return ""
+            items = []
+            for k, v in ans.items():
+                v = (v or "").strip()
+                if not v:
+                    continue
+                # çok uzunsa kısalt
+                if len(v) > 200:
+                    v = v[:200] + "..."
+                items.append(f"- {k}: {v}")
+            return "\n".join(items[:10])  # güvenli üst sınır
+
+        answers_summary = summarize_answers(answers_dict)
+
+        style = (
+            "Write 2-3 short, supportive sentences with 2-4 cute, relevant emojis. "
+            "End with one tiny actionable tip. Avoid clinical wording. "
+            "If the entry language is Turkish, reply in Turkish; otherwise reply in the entry language."
+            if user_lang == "auto" else
+            f"Reply in {user_lang}. Use 2-4 cute emojis, 2-3 short sentences, one tiny tip."
+        )
+
+        prompt = f"""
+    You are a gentle journaling buddy.
+    User profile quick notes (from onboarding survey):
+    {answers_summary if answers_summary else "(no survey answers)"} 
+
+    Today's entry (verbatim):
+    \"\"\"{entry_text}\"\"\"
+
+    Detected emotion label (not shown to user): {emotion}
+
+    Task:
+    - Give a short, warm reflection and encouragement.
+    - 2-4 tasteful, context-matching emojis.
+    - 2-3 sentences total, then one micro-tip on a new line starting with "Tip:".
+    - No therapy/diagnosis, no disclaimers.
+
+    {style}
+    """.strip()
+
+        try:
+            model = genai.GenerativeModel("gemini-1.5-flash")
+            resp = model.generate_content(prompt)
+            text = (resp.text or "").strip()
+            # Güvenlik: çok uzun gelirse kısalt
+            return text[:1000] if text else None
+        except Exception as e:
+            print("Gemini error:", e)
+            return None
 
     # ---------- PAGES ----------
     @app.get("/")
@@ -33,7 +100,6 @@ def create_app():
         resp.headers["Pragma"] = "no-cache"
         resp.headers["Expires"] = "0"
         return resp
-
 
     @app.get("/journal")
     def journal():
@@ -71,7 +137,7 @@ def create_app():
             answers = json.dumps(answers)
         # Alanların boş olup olmadığını kontrol et
         if not all([name, email, password, answers]):
-            if(answers is None):
+            if (answers is None):
                 print("cevaplar alınamadı")
             return jsonify({"error": "Missing fields"}), 400
 
@@ -175,17 +241,38 @@ def create_app():
         # Konsola yazdır
         print(f"[DUYGU TAHMİNİ] User {user_id}: '{content}' --> {emotion}")
 
+        # Kullanıcı + anket
+        u = User.query.get(user_id)
+        answers_dict = {}
+        if u and u.answers:
+            try:
+                answers_dict = json.loads(u.answers)
+            except Exception:
+                answers_dict = {}
+
         # Veritabanına kaydet (emotion olmadan)
-        e = Entry(user_id=user_id, content=content,emotion=emotion,updated_at=datetime.now())
+        e = Entry(user_id=user_id, content=content, emotion=emotion)
         db.session.add(e)
         db.session.commit()
 
+        # Gemini’den koç yanıtı iste (senkron; istersen try/except içinde)
+        ai_reply = None
+        if current_app.config.get("GOOGLE_API_KEY"):
+            ai_reply = ai_journal_coach(answers_dict, content, emotion, user_lang="auto")
+
+        # DB’de sakla (başarısız olursa boş kalır)
+        if ai_reply:
+            e.ai_reply = ai_reply
+            db.session.commit()
         # Response içinde emotion döndür
         return jsonify({
             "id": e.id,
             "content": e.content,
-            "emotion": emotion,  # kalıcı değil, sadece response
-            "created_at": e.created_at.isoformat() if e.created_at else None
+            "emotion": e.emotion,  # artık kalıcı
+            "ai_reply": e.ai_reply,  # kısa koç cevabı
+            "created_at": e.created_at.isoformat() if e.created_at else None,
+            # sadece varsa gönderelim
+            **({"updated_at": e.updated_at.isoformat()} if e.updated_at else {})
         }), 201
 
     @app.get("/api/entries/<int:user_id>")
@@ -194,7 +281,7 @@ def create_app():
         return jsonify([
             {"id": r.id, "content": r.content,
              "created_at": r.created_at.isoformat() if r.created_at else None,
-             "updated_at": r.updated_at.isoformat() if r.updated_at else None,}
+             "updated_at": r.updated_at.isoformat() if r.updated_at else None }
             for r in rows
         ])
 
@@ -210,6 +297,7 @@ def create_app():
             return jsonify({"error": "not found"}), 404
 
         e.content = content
+        e.updated_at = datetime.now()
         db.session.commit()
         return jsonify({
             "id": e.id,
@@ -232,6 +320,7 @@ def create_app():
         return "", 204
 
     return app
+
 
 if __name__ == "__main__":
     app = create_app()

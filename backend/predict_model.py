@@ -23,7 +23,8 @@ id2label = {
     1: "joy",
     2: "love",
     3: "anger",
-    4: "fear"
+    4: "fear",
+    5: "surprise"
 }
 
 def predict_emotion(text: str):
